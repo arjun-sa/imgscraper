@@ -13,9 +13,23 @@ img_elements = results.find_all("div", class_="YdIix")
 for img_element in img_elements:
     image_urls = img_element.find_all("a", class_="rEAWd")
     for image_url in image_urls:
-        actual = image_url["href"]
-        #prints full url
-        print(f"unsplash.com{actual}\n")
+        front = "https://unsplash.com"
+        back = image_url["href"]
+        actual =  "%s%s"%(front,back)
+        #prints image preview url
+        print(actual)
+        print()
+        #goes to image preview and retrieves image download link
+        realpage = requests.get(actual)
+        realsoup = BeautifulSoup(realpage.content, "html.parser")
+        realresults = realsoup.find("div", class_="mef9R")
+        linko = realresults.find("a")
+        real = linko["href"]
+        #prints image download link
+        print(real)
+        print()
+
+
 
 
 
