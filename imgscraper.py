@@ -25,9 +25,16 @@ for img_element in img_elements:
         realresults = realsoup.find("div", class_="mef9R")
         linko = realresults.find("a")
         real = linko["href"]
-        #prints image download link
-        print(real)
-        print()
+        #downloads images from site
+        filename = real.split('/')[-2] + ".jpg"
+        print("downloading %s"%filename)
+        r = requests.get(real, stream=True)
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=1024*1024):
+                if chunk:
+                    f.write(chunk)
+        print ("%s downloaded\n"%filename)
+
 
 
 
